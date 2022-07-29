@@ -15,17 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from game.views import draw, split, start, stop
+from game.views import draw, new, split, start, stop
 
 urlpatterns = [
     # Url predefinida do Django para administração do banco de dados
     path('admin/', admin.site.urls),
-    # Url que premite o inicio do jogo
-    path('game/start/<str:player_name>/<str:bet>/', start),
+    
+    # Url que solicita o inicio do jogo
+    path('game/new/<str:player_name>/<str:bet>', new),
+
+    # Url que solicita a distribuição inicial
+    path('game/start/<str:match_id>', start),
+
     # Url que solicita a compra de uma carta
-    path('game/draw/<str:hand_id>/', draw),
+    path('game/draw/<str:match_id>', draw),
+    
     # Url que solicita a divisão de uma mão
-    path('game/split/<str:hand_id>/', split),
+    path('game/split/<str:match_id>', split),
+    
     # Url que solicita a parada e troca de turno
-    path('game/stop/<str:hand_id>/', stop),
+    path('game/stop/<str:match_id>', stop),
 ]
